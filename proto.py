@@ -175,3 +175,11 @@ def dtw(x, y, dist):
 
     Note that you only need to define the first output for this exercise.
     """
+    #
+    LD = dist(x,y.T)
+    h=0
+    k=0
+    for h in x:
+    	for k in y:
+    		AD[h,k] = LD[h,k] + np.min(AD[h,k-1],np.min(AD[h-1,k],Ad[h-1,k-1]))
+    

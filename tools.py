@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.spatial.distance.cdist as dist
 # DT2118, Lab 1 Feature Extraction
 # - Functions given by the exercise -------------------------------------------- 
 
@@ -99,3 +100,7 @@ def trfbank(fs, nfft, lowfreq=133.33, linsc=200/3., logsc=1.0711703, nlinfilt=13
         fbank[i][rid] = rslope * (hi - nfreqs[rid])
 
     return fbank
+
+def dist(x,y):
+    return dist(x,y,metric=euclidean)
+

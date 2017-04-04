@@ -82,10 +82,13 @@ def Assignment2():
 		else:
 			f = np.vstack((f,p.mfcc(item['samples'])))
 	corr = np.corrcoef(f)
-	p.plot(corr)
+	#p.plot(corr)
+
+def Assignment3():
+	
 
 
 if __name__ == '__main__':
-	Assignment1()
-	#Assignment2()
+	#Assignment1()
+	Assignment2()
 
