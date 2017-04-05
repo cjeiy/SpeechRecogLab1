@@ -87,7 +87,6 @@ def windowing(in_sig):
     """
     out = np.zeros(in_sig.shape)
     windows = np.zeros(in_sig.shape)
-
     for index,val in enumerate(in_sig):
     	window = s.hamming(np.size(val), sym=0)
     	diag_window = np.diag(window)
@@ -175,11 +174,30 @@ def dtw(x, y, dist):
 
     Note that you only need to define the first output for this exercise.
     """
-    #
-    LD = dist(x,y.T)
-    h=0
-    k=0
-    for h in x:
-    	for k in y:
-    		AD[h,k] = LD[h,k] + np.min(AD[h,k-1],np.min(AD[h-1,k],Ad[h-1,k-1]))
-    
+    h=1
+    k=1
+    AD = np.zeros((len(x),len(y)))
+    path = np.zeros((len(x),len(y)))
+    AD[0,1:]=np.inf
+    AD[1:,0]=np.inf
+    LD = dist(x,y)
+
+    for h in range(AD.shape[0]):
+    	for k in range(AD.shape[1]):
+    		a = AD[h,k-1]
+    		b = AD[h-1,k]
+    		c = AD[h-1,k-1]
+    		AD[h,k] = LD[h,k] + np.min([a,b,c])
+    		
+    		index = np.argmin([a,b,c])
+    		if index == 0:
+    			path[h,k-1] = 1
+    		elif index == 1:
+    			path[h-1,k] = 1
+    		else:
+    			path[h-1,k-1] = 1 
+
+    return [(AD[-1,-1]/len(x)+len(y)), LD, AD, path]
+
+
+  
